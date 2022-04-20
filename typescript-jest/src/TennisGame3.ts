@@ -20,7 +20,7 @@ export class TennisGame3 implements TennisGame {
       if (this.isTie())
         return 'Deuce';
       s = this.player1.score > this.player2.score ? this.player1.name : this.player2.name;
-      return (((this.player1.score - this.player2.score) * (this.player1.score - this.player2.score)) === 1) ? 'Advantage ' + s : 'Win for ' + s;
+      return (((this.player1.score - this.player2.score) ** 2) === 1) ? 'Advantage ' + s : 'Win for ' + s;
     }
   }
 
