@@ -15,8 +15,7 @@ export class TennisGame3 implements TennisGame {
       const points: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
       return (this.isTie()) ? points[this.player1.score] + '-All' : points[this.player1.score] + '-' + points[this.player2.score];
     } else {
-      if (this.isTie())
-        return 'Deuce';
+      if (this.isTie()) return 'Deuce';
       const leadingPlayerName: string = this.player1.score > this.player2.score ? this.player1.name : this.player2.name;
       return (((this.player1.score - this.player2.score) ** 2) === 1) ? 'Advantage ' + leadingPlayerName : 'Win for ' + leadingPlayerName;
     }
