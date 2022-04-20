@@ -15,9 +15,9 @@ export class TennisGame3 implements TennisGame {
     if (this.player1.score < 4 && this.player2.score < 4 && !(this.player1.score + this.player2.score === 6)) {
       const p: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
       s = p[this.player1.score];
-      return (this.player1.score === this.player2.score) ? s + '-All' : s + '-' + p[this.player2.score];
+      return (this.isTie()) ? s + '-All' : s + '-' + p[this.player2.score];
     } else {
-      if (this.player1.score === this.player2.score)
+      if (this.isTie())
         return 'Deuce';
       s = this.player1.score > this.player2.score ? this.player1.name : this.player2.name;
       return (((this.player1.score - this.player2.score) * (this.player1.score - this.player2.score)) === 1) ? 'Advantage ' + s : 'Win for ' + s;
@@ -29,5 +29,9 @@ export class TennisGame3 implements TennisGame {
       this.player1.wonPoint();
     else
       this.player2.wonPoint();
+  }
+
+  private isTie(): boolean {
+    return this.player1.score === this.player2.score;
   }
 }
