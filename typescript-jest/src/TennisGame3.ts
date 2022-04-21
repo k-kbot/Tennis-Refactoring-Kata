@@ -2,6 +2,7 @@ import { TennisGame } from './TennisGame';
 import { Player } from './Player';
 
 export class TennisGame3 implements TennisGame {
+  readonly POINTS: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
   player1: Player;
   player2: Player;
 
@@ -12,8 +13,7 @@ export class TennisGame3 implements TennisGame {
 
   getScore(): string {
     if (this.player1.score < 4 && this.player2.score < 4 && !(this.player1.score + this.player2.score === 6)) {
-      const points: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
-      return (this.isTie()) ? points[this.player1.score] + '-All' : points[this.player1.score] + '-' + points[this.player2.score];
+      return (this.isTie()) ? this.POINTS[this.player1.score] + '-All' : this.POINTS[this.player1.score] + '-' + this.POINTS[this.player2.score];
     } else {
       if (this.isTie()) return 'Deuce';
       const leadingPlayerName: string = this.player1.score > this.player2.score ? this.player1.name : this.player2.name;
