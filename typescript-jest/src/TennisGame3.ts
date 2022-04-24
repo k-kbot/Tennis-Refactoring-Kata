@@ -1,34 +1,34 @@
 import { TennisGame } from './TennisGame';
+import { Player } from './Player';
 
 export class TennisGame3 implements TennisGame {
-  private p2: number = 0;
-  private p1: number = 0;
-  private p1N: string;
-  private p2N: string;
+  readonly POINTS: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
+  player1: Player;
+  player2: Player;
 
-  constructor(p1N: string, p2N: string) {
-    this.p1N = p1N;
-    this.p2N = p2N;
+  constructor(player1Name: string, player2Name: string) {
+    this.player1 = new Player(player1Name);
+    this.player2 = new Player(player2Name);
   }
 
   getScore(): string {
-    let s: string;
-    if (this.p1 < 4 && this.p2 < 4 && !(this.p1 + this.p2 === 6)) {
-      const p: string[] = ['Love', 'Fifteen', 'Thirty', 'Forty'];
-      s = p[this.p1];
-      return (this.p1 === this.p2) ? s + '-All' : s + '-' + p[this.p2];
+    if (this.player1.score < 4 && this.player2.score < 4 && !(this.player1.score + this.player2.score === 6)) {
+      return (this.isTie()) ? this.POINTS[this.player1.score] + '-All' : this.POINTS[this.player1.score] + '-' + this.POINTS[this.player2.score];
     } else {
-      if (this.p1 === this.p2)
-        return 'Deuce';
-      s = this.p1 > this.p2 ? this.p1N : this.p2N;
-      return (((this.p1 - this.p2) * (this.p1 - this.p2)) === 1) ? 'Advantage ' + s : 'Win for ' + s;
+      if (this.isTie()) return 'Deuce';
+      const leadingPlayerName: string = this.player1.score > this.player2.score ? this.player1.name : this.player2.name;
+      return (((this.player1.score - this.player2.score) ** 2) === 1) ? 'Advantage ' + leadingPlayerName : 'Win for ' + leadingPlayerName;
     }
   }
 
   wonPoint(playerName: string): void {
     if (playerName === 'player1')
-      this.p1 += 1;
+      this.player1.wonPoint();
     else
-      this.p2 += 1;
+      this.player2.wonPoint();
+  }
+
+  private isTie(): boolean {
+    return this.player1.score === this.player2.score;
   }
 }
